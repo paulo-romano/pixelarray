@@ -20,7 +20,7 @@ class PixelArrayTestCase(TestCase):
         # assert count rows
         self.assertEqual(len(obj.data), n)
 
-        #assert count cols
+        # assert count cols
         for row in obj.data:
             with self.subTest():
                 self.assertEqual(len(row), m)
@@ -31,7 +31,7 @@ class PixelArrayTestCase(TestCase):
         for rows in obj.data:
             for col in rows:
                 with self.subTest():
-                    self.assertEqual(col, 0)
+                    self.assertEqual(col, '0')
 
     def test_get_pixel_must_return_x_y_value(self):
         obj = PixelArray(5, 5)
@@ -70,6 +70,22 @@ class PixelArrayTestCase(TestCase):
         obj.colorize(3, 1, 'F')
         obj.colorize(2, 3, 'A')
         obj.colorize(5, 6, 'A')
+        self.assertEqual(obj.get_formated_data(), expected)
+
+    def test_clear_method_must_reinitialize_data(self):
+        expected = '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n'
+
+        obj = PixelArray(5, 6)
+        obj.colorize(1, 1, 'F')
+        obj.colorize(3, 1, 'F')
+        obj.colorize(2, 3, 'A')
+        obj.colorize(5, 6, 'A')
+        obj.clear()
         self.assertEqual(obj.get_formated_data(), expected)
 
 
