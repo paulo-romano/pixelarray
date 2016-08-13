@@ -51,3 +51,8 @@ class PixelArray:
     def draw_horizontal_segment(self, x1, x2, y, color):
         for x in range(x1, x2+1):
             self.colorize(x, y, color)
+
+    def draw_rectangle(self, x1, y1, x2, y2, color):
+        for x in range(x1, x2+1):
+            for y in range(y1, y2+1):
+                self.colorize(x, y, color)
