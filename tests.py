@@ -39,10 +39,13 @@ class PixelArrayTestCase(TestCase):
         obj.data[y-1][x-1] = new_value
         self.assertEqual(obj.get_pixel(x, y), new_value)
 
+    def assertValidCoordinates(self, callebleObj, **kwargs):
+        self.assertRaises(ValueError, callebleObj, x=0, y=1, **kwargs)
+        self.assertRaises(ValueError, callebleObj, x=1, y=0, **kwargs)
+
     def test_get_pixel_coordinates_must_be_non_zero(self):
         obj = PixelArray(5, 5)
-        self.assertRaises(ValueError, obj.get_pixel, x=0, y=1)
-        self.assertRaises(ValueError, obj.get_pixel, x=1, y=0)
+        self.assertValidCoordinates(obj.get_pixel)
 
     def test_colorize_method_must_change_element_value(self):
         obj = PixelArray(5, 5)
@@ -52,8 +55,7 @@ class PixelArrayTestCase(TestCase):
 
     def test_colorize_coordinates_must_be_non_zero(self):
         obj = PixelArray(5, 5)
-        self.assertRaises(ValueError, obj.colorize, x=0, y=1, color='r')
-        self.assertRaises(ValueError, obj.colorize, x=1, y=0, color='r')
+        self.assertValidCoordinates(obj.colorize, color='d')
 
     def test_get_formated_data(self):
         expected = 'F0F00\n' \
