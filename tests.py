@@ -112,7 +112,7 @@ class PixelArrayTestCase(TestCase):
         obj.draw_horizontal_segment(4, 5, 4, 'Y')
         self.assertEqual(obj.get_formatted_data(), expected)
 
-    def test_draw_rectangle_segment_method(self):
+    def test_draw_rectangle_method(self):
         expected = 'XXXX000000\n' \
                    'XXXX000000\n' \
                    'RR00000000\n' \
