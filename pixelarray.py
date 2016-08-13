@@ -10,7 +10,8 @@ class PixelArray:
     def __len__(self):
         return self.m * self.n
 
-    def get_data(self):
+    @property
+    def data(self):
         return self._data
 
     def get_pixel(self, x, y):

@@ -15,22 +15,21 @@ class PixelArrayTestCase(TestCase):
 
     def test_must_have_get_data_function(self):
         obj = PixelArray(5, 5)
-        self.assertIsNotNone(obj.get_data)
+        self.assertIsNotNone(obj.data)
 
-    def test_get_data_must_return_mxn_array(self):
+    def test_data_property_must_return_mxn_array(self):
         m, n = 5, 10
         obj = PixelArray(m, n)
-        data = obj.get_data()
 
-        self.assertEqual(len(data), m)
-        for row in data:
+        self.assertEqual(len(obj.data), m)
+        for row in obj.data:
             with self.subTest():
                 self.assertEqual(len(row), n)
 
     def test_initial_elements_must_have_zero_value(self):
         obj = PixelArray(3, 2)
 
-        for rows in obj.get_data():
+        for rows in obj.data:
             for col in rows:
                 with self.subTest():
                     self.assertEqual(col, 0)
@@ -38,7 +37,7 @@ class PixelArrayTestCase(TestCase):
     def test_get_pixel_must_return_x_y_value(self):
         obj = PixelArray(5, 5)
         x, y, new_value = 2, 3, 'w'
-        obj.get_data()[x][y] = new_value
+        obj.data[x][y] = new_value
         self.assertEqual(obj.get_pixel(x, y), new_value)
 
     def test_colorize_method_must_change_element_value(self):
