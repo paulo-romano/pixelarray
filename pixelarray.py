@@ -47,3 +47,7 @@ class PixelArray:
     def draw_vertical_segment(self, x, y1, y2, color):
         for y in range(y1, y2+1):
             self.colorize(x, y, color)
+
+    def draw_horizontal_segment(self, x1, x2, y, color):
+        for x in range(x1, x2+1):
+            self.colorize(x, y, color)

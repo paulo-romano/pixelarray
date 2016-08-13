@@ -99,3 +99,15 @@ class PixelArrayTestCase(TestCase):
         obj.draw_vertical_segment(5, 3, 4, 'X')
         obj.draw_vertical_segment(1, 1, 4, '1')
         self.assertEqual(obj.get_formatted_data(), expected)
+
+    def test_draw_horizontal_segment_method(self):
+        expected = '00000\n' \
+                   'XXXXX\n' \
+                   'EEE00\n' \
+                   '000YY\n'
+
+        obj = PixelArray(5, 4)
+        obj.draw_horizontal_segment(1, 5, 2, 'X')
+        obj.draw_horizontal_segment(1, 3, 3, 'E')
+        obj.draw_horizontal_segment(4, 5, 4, 'Y')
+        self.assertEqual(obj.get_formatted_data(), expected)
