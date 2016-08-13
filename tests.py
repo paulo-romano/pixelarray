@@ -13,7 +13,7 @@ class PixelArrayTestCase(TestCase):
         obj = PixelArray(5, 5)
         self.assertEqual(len(obj), 25)
 
-    def test_data_property_must_return_mxn_array(self):
+    def test_data_property_must_be_mxn_array(self):
         m, n = 5, 10
         obj = PixelArray(m, n)
 
