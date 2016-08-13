@@ -57,7 +57,7 @@ class PixelArrayTestCase(TestCase):
         obj = PixelArray(5, 5)
         self.assertValidCoordinates(obj.colorize, color='d')
 
-    def test_get_formated_data(self):
+    def test_get_formatted_data(self):
         expected = 'F0F00\n' \
                    '00000\n' \
                    '0A000\n' \
@@ -70,7 +70,7 @@ class PixelArrayTestCase(TestCase):
         obj.colorize(3, 1, 'F')
         obj.colorize(2, 3, 'A')
         obj.colorize(5, 6, 'A')
-        self.assertEqual(obj.get_formated_data(), expected)
+        self.assertEqual(obj.get_formatted_data(), expected)
 
     def test_clear_method_must_reinitialize_data(self):
         expected = '00000\n' \
@@ -86,6 +86,6 @@ class PixelArrayTestCase(TestCase):
         obj.colorize(2, 3, 'A')
         obj.colorize(5, 6, 'A')
         obj.clear()
-        self.assertEqual(obj.get_formated_data(), expected)
+        self.assertEqual(obj.get_formatted_data(), expected)
 
 

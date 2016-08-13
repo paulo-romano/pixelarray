@@ -20,7 +20,8 @@ class PixelArray:
     def data(self):
         return self._data
 
-    def _verify_coordinates(self, x, y):
+    @staticmethod
+    def _verify_coordinates(x, y):
         if not x:
             raise ValueError('X must be a non zero value')
         if not y:
@@ -34,11 +35,11 @@ class PixelArray:
         self._verify_coordinates(x, y)
         self._data[y-1][x-1] = color
 
-    def get_formated_data(self):
-        formated_data = ''
+    def get_formatted_data(self):
+        formatted_data = ''
         for row in self.data:
             for col in row:
-                formated_data += col
-            formated_data += '\n'
+                formatted_data += col
+            formatted_data += '\n'
 
-        return formated_data
+        return formatted_data
