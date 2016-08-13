@@ -39,9 +39,9 @@ class PixelArrayTestCase(TestCase):
         obj.data[y-1][x-1] = new_value
         self.assertEqual(obj.get_pixel(x, y), new_value)
 
-    def assertValidCoordinates(self, callebleObj, **kwargs):
-        self.assertRaises(ValueError, callebleObj, x=0, y=1, **kwargs)
-        self.assertRaises(ValueError, callebleObj, x=1, y=0, **kwargs)
+    def assertValidCoordinates(self, callable_obj, **kwargs):
+        self.assertRaises(ValueError, callable_obj, x=0, y=1, **kwargs)
+        self.assertRaises(ValueError, callable_obj, x=1, y=0, **kwargs)
 
     def test_get_pixel_coordinates_must_be_non_zero(self):
         obj = PixelArray(5, 5)
