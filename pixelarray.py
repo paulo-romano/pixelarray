@@ -12,3 +12,6 @@ class PixelArray:
 
     def get_data(self):
         return self._data
+
+    def colorize(self, x, y, color):
+        self._data[x][y] = color

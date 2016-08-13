@@ -35,3 +35,9 @@ class PixelArrayTestCase(TestCase):
                 with self.subTest():
                     self.assertEqual(col, 0)
 
+    def test_colorize_method_must_change_element_value(self):
+        obj = PixelArray(5, 5)
+        x, y, new_value = 2, 3, 'w'
+        obj.colorize(x, y, new_value)
+        self.assertEqual(obj.get_data()[x][y], new_value)
+
