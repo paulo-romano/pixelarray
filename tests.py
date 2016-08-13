@@ -129,6 +129,14 @@ class PixelArrayTestCase(TestCase):
         obj.draw_rectangle(1, 3, 2, 6, 'R')
         self.assertEqual(obj.get_formatted_data(), expected)
 
+    def test_verify_coordinates_method(self):
+        obj = PixelArray(2, 2)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=0, y=1)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=1, y=0)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=-1, y=1)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=1, y=-1)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=3, y=1)
+        self.assertRaises(ValueError, obj._verify_coordinates, x=1, y=3)
 
     def test_fill_region_method(self):
         expected = 'KKKK000000\n' \

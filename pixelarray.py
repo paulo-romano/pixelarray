@@ -20,11 +20,10 @@ class PixelArray:
     def data(self):
         return self._data
 
-    @staticmethod
-    def _verify_coordinates(x, y):
-        if not x:
+    def _verify_coordinates(self, x, y):
+        if x <= 0 or x > self.number_of_cols:
             raise ValueError('X must be a non zero value')
-        if not y:
+        if y <= 0 or y > self.number_of_rows:
             raise ValueError('y must be a non zero value')
 
     def get_pixel(self, x, y):
