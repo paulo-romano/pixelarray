@@ -128,3 +128,22 @@ class PixelArrayTestCase(TestCase):
         obj.draw_rectangle(2, 7, 8, 8, 'E')
         obj.draw_rectangle(1, 3, 2, 6, 'R')
         self.assertEqual(obj.get_formatted_data(), expected)
+
+
+    def test_fill_region_method(self):
+        expected = 'KKKK000000\n' \
+                   'KKKK000000\n' \
+                   'RR00000000\n' \
+                   'RR00000000\n' \
+                   'RR00000000\n' \
+                   'RR00000000\n' \
+                   '0EEEEEEE00\n' \
+                   '0EEEEEEE00\n' \
+                   '0000000000\n'
+
+        obj = PixelArray(10, 9)
+        obj.draw_rectangle(1, 1, 4, 2, 'X')
+        obj.draw_rectangle(2, 7, 8, 8, 'E')
+        obj.draw_rectangle(1, 3, 2, 6, 'R')
+        obj.fill_region(1, 1, 'K')
+        self.assertEqual(obj.get_formatted_data(), expected)

@@ -56,3 +56,10 @@ class PixelArray:
         for x in range(x1, x2+1):
             for y in range(y1, y2+1):
                 self.colorize(x, y, color)
+
+    def _fill(self, x, y, region_color, color):
+        pass
+
+    def fill_region(self, x, y, color):
+        region_color = self.get_pixel(x, y)
+        self._fill(x, y, region_color, color)
