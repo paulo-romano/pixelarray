@@ -45,6 +45,6 @@ class PixelArrayTestCase(TestCase):
         obj = PixelArray(5, 5)
         x, y, new_value = 2, 3, 'w'
         obj.colorize(x, y, new_value)
-        self.assertEqual(obj.get_data()[x][y], new_value)
+        self.assertEqual(obj.get_pixel(x, y), new_value)
 
 
