@@ -36,8 +36,13 @@ class PixelArrayTestCase(TestCase):
     def test_get_pixel_must_return_x_y_value(self):
         obj = PixelArray(5, 5)
         x, y, new_value = 2, 3, 'w'
-        obj.data[x][y] = new_value
+        obj.data[y-1][x-1] = new_value
         self.assertEqual(obj.get_pixel(x, y), new_value)
+
+    def test_get_pixel_coordinates_must_be_non_zero(self):
+        obj = PixelArray(5, 5)
+        self.assertRaises(ValueError, obj.get_pixel, x=0, y=1)
+        self.assertRaises(ValueError, obj.get_pixel, x=1, y=0)
 
     def test_colorize_method_must_change_element_value(self):
         obj = PixelArray(5, 5)
@@ -45,15 +50,24 @@ class PixelArrayTestCase(TestCase):
         obj.colorize(x, y, new_value)
         self.assertEqual(obj.get_pixel(x, y), new_value)
 
+    def test_colorize_coordinates_must_be_non_zero(self):
+        obj = PixelArray(5, 5)
+        self.assertRaises(ValueError, obj.colorize, x=0, y=1, color='r')
+        self.assertRaises(ValueError, obj.colorize, x=1, y=0, color='r')
+
     def test_get_formated_data(self):
-        expected = '00000\n' \
+        expected = 'F0F00\n' \
+                   '00000\n' \
+                   '0A000\n' \
                    '00000\n' \
                    '00000\n' \
-                   '00000\n' \
-                   '00000\n' \
-                   '00000\n'
+                   '0000A\n'
 
         obj = PixelArray(5, 6)
+        obj.colorize(1, 1, 'F')
+        obj.colorize(3, 1, 'F')
+        obj.colorize(2, 3, 'A')
+        obj.colorize(5, 6, 'A')
         self.assertEqual(obj.get_formated_data(), expected)
 
 

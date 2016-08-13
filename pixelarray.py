@@ -14,11 +14,19 @@ class PixelArray:
     def data(self):
         return self._data
 
+    def _verify_coordinates(self, x, y):
+        if not x:
+            raise ValueError('X must be a non zero value')
+        if not y:
+            raise ValueError('y must be a non zero value')
+
     def get_pixel(self, x, y):
-        return self._data[x][y]
+        self._verify_coordinates(x, y)
+        return self._data[y-1][x-1]
 
     def colorize(self, x, y, color):
-        self._data[x][y] = color
+        self._verify_coordinates(x, y)
+        self._data[y-1][x-1] = color
 
     def get_formated_data(self):
         formated_data = ''
