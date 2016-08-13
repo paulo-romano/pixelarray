@@ -1,14 +1,14 @@
 class PixelArray:
     """Implements a array of pixels"""
-    def __init__(self, m, n):
-        self.m = m
-        self.n = n
+    def __init__(self, number_of_cols, number_of_rows):
+        self.number_of_rows = number_of_rows
+        self.number_of_cols = number_of_cols
         self._data = []
-        for row in range(m):
-            self._data.append(list([0 for col in range(n)]))
+        for row in range(number_of_rows):
+            self._data.append(list([0 for col in range(number_of_cols)]))
 
     def __len__(self):
-        return self.m * self.n
+        return self.number_of_rows * self.number_of_cols
 
     @property
     def data(self):

@@ -17,10 +17,13 @@ class PixelArrayTestCase(TestCase):
         m, n = 5, 10
         obj = PixelArray(m, n)
 
-        self.assertEqual(len(obj.data), m)
+        # assert count rows
+        self.assertEqual(len(obj.data), n)
+
+        #assert count cols
         for row in obj.data:
             with self.subTest():
-                self.assertEqual(len(row), n)
+                self.assertEqual(len(row), m)
 
     def test_initial_elements_must_have_zero_value(self):
         obj = PixelArray(3, 2)
