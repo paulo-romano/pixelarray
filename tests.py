@@ -27,3 +27,11 @@ class PixelArrayTestCase(TestCase):
             with self.subTest():
                 self.assertEqual(len(row), n)
 
+    def test_initial_elements_must_have_zero_value(self):
+        obj = PixelArray(3, 2)
+
+        for rows in obj.get_data():
+            for col in rows:
+                with self.subTest():
+                    self.assertEqual(col, 0)
+

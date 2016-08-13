@@ -5,7 +5,7 @@ class PixelArray:
         self.n = n
         self._data = []
         for row in range(m):
-            self._data.append(list([col for col in range(n)]))
+            self._data.append(list([0 for col in range(n)]))
 
     def __len__(self):
         return self.m * self.n
