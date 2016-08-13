@@ -42,4 +42,15 @@ class PixelArrayTestCase(TestCase):
         obj.colorize(x, y, new_value)
         self.assertEqual(obj.get_pixel(x, y), new_value)
 
+    def test_get_formated_data(self):
+        expected = '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n'
+
+        obj = PixelArray(5, 6)
+        self.assertEqual(obj.get_formated_data(), expected)
+
 

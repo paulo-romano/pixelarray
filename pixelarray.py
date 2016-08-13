@@ -19,3 +19,12 @@ class PixelArray:
 
     def colorize(self, x, y, color):
         self._data[x][y] = color
+
+    def get_formated_data(self):
+        formated_data = ''
+        for row in self.data:
+            for col in row:
+                formated_data += str(col)
+            formated_data += '\n'
+
+        return formated_data
