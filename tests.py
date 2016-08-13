@@ -88,4 +88,14 @@ class PixelArrayTestCase(TestCase):
         obj.clear()
         self.assertEqual(obj.get_formatted_data(), expected)
 
+    def test_draw_vertical_segment_method(self):
+        expected = '10000\n' \
+                   '10E00\n' \
+                   '10E0X\n' \
+                   '1000X\n'
 
+        obj = PixelArray(5, 4)
+        obj.draw_vertical_segment(3, 2, 3, 'E')
+        obj.draw_vertical_segment(5, 3, 4, 'X')
+        obj.draw_vertical_segment(1, 1, 4, '1')
+        self.assertEqual(obj.get_formatted_data(), expected)

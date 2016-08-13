@@ -43,3 +43,7 @@ class PixelArray:
             formatted_data += '\n'
 
         return formatted_data
+
+    def draw_vertical_segment(self, x, y1, y2, color):
+        for y in range(y1, y2+1):
+            self.colorize(x, y, color)
