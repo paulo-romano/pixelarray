@@ -228,6 +228,22 @@ class Runner:
         except:
             print('Invalid command! Must be: i number_of_columns number_of_rows')
 
+    def execute_h(self, args):
+        """
+        Draw a horizontal segment
+        :param args: Args used in this command
+        """
+        try:
+            x1 = int(args[0])
+            x2 = int(args[1])
+            y = int(args[2])
+            color = str(args[3])
+            self._data.colorize(x1, x2, y, color)
+        except AttributeError:
+            print('Inválide command! Must be initialized first.')
+        except:
+            print('Invalid command! Must be: i number_of_columns number_of_rows')
+
     def execute(self, command, command_args):
         """
         Decides what command will be executed

@@ -218,3 +218,8 @@ class RunnerTestCase(TestCase):
     def test_execute_must_execute_v(self):
         command, command_args = 'v', ['3', '3', '6', 'C']
         self.assertExecute(command, command_args)
+
+    def test_execute_must_execute_h(self):
+        command, command_args = 'h', ['6', '5', '6', 'C']
+        self.assertExecute(command, command_args)
+
