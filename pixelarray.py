@@ -176,6 +176,10 @@ class Runner:
         self._data = None
 
     def execute_i(self, args):
+        """
+        Create a empty array of pixels
+        :param args: Args used in this command
+        """
         try:
             cols = int(args[0])
             rows = int(args[1])
@@ -184,11 +188,17 @@ class Runner:
             print('Invalid command! Must be: i number_of_columns number_of_rows')
 
     def execute(self, command, command_args):
+        """
+        Decides what command will be executed
+        :param command: Command letter
+        :param command_args: Command Args
+        """
         method = getattr(self, 'execute_' + command.lower(), None)
         if method:
             method(command_args)
 
     def run(self):
+        """Read commands from user, until user press x key"""
         command = ''
         while command.upper() != 'X':
             command, *command_args = input('Command: ').split(' ')
