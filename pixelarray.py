@@ -172,9 +172,8 @@ class PixelArray:
 
 
 class Runner:
-    def __int__(self, array_class):
+    def __int__(self):
         self._data = None
-        self.array_class = array_class
 
     def execute_i(self, args):
         try:
