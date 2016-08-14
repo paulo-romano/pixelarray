@@ -189,11 +189,18 @@ class RunnerTestCase(TestCase):
     def test_must_have_execute_method(self):
         self.assertIsNotNone(self.runner.execute)
 
-    def test_must_have_execute_i(self):
-        self.assertIsNotNone(self.runner.execute_i)
-
     def test_execute_must_execute_i(self):
+        method = self.runner.execute_i
         self.runner.execute_i = MagicMock()
         command, command_args = 'i', ['4', '2']
         self.runner.execute(command, command_args)
         self.runner.execute_i.assert_called_with(command_args)
+        self.runner.execute_i = method
+
+    def test_execute_muste_execute_c(self):
+        method = self.runner.execute_c
+        self.runner.execute_c = MagicMock()
+        command, command_args = 'c', None
+        self.runner.execute(command, command_args)
+        self.runner.execute_c.assert_called_with(command_args)
+        self.runner.execute_c = method

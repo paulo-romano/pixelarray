@@ -187,6 +187,16 @@ class Runner:
         except:
             print('Invalid command! Must be: i number_of_columns number_of_rows')
 
+    def execute_c(self, command_args):
+        """
+        Clear the data
+        :param command_args: Args used in this command
+        """
+        if self._data:
+            self._data.clear()
+        else:
+            print('Inválide command! Must be initialized first.')
+
     def execute(self, command, command_args):
         """
         Decides what command will be executed
