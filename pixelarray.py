@@ -152,6 +152,12 @@ class PixelArray:
             self._fill(x - 1, y, region_color, color)
 
     def fill_region(self, x, y, color):
+        """
+        Fill region with new color
+        :param x: Column of the pixel in region
+        :param y: Line of the pixel in region
+        :param color: New color
+        """
         region_color = self.get_pixel(x, y)
         self._fill(x, y, region_color, color)
 
