@@ -64,31 +64,39 @@ class PixelArray:
             for y in range(y1, y2+1):
                 self.colorize(x, y, color)
 
+    def _can_fill_pixel(self, x, y, region_color):
+        """
+        Verify if a pixel can be filled with another color
+        :param x: Column of the pixel
+        :param y: Line of the pixel
+        :param region_color: The region color that will be verifyed
+        :return: True if can be changed
+        """
+        return self._verify_coordinates(x, y, False) and self.get_pixel(x, y) == region_color
+
     def _fill(self, x, y, region_color, color):
-        pixel_color = self.get_pixel(x, y)
-        if pixel_color == region_color or pixel_color == color:
+        """
+        Fill all pixel located in same region color, and his adjacent pixels.
+        :param x: Column of the pixel
+        :param y: Line of the pixel
+        :param region_color: The region color that will be verifyed
+        :param color: New color
+        """
+
+        if self.get_pixel(x, y) == region_color:
             self.colorize(x, y, color)
 
-        # Todo: Needs refactoring
-        if not self._verify_coordinates(x, y - 1, False) or pixel_color != region_color:
-            return
-        else:
+        if self._can_fill_pixel(x, y - 1, region_color):
             self._fill(x, y - 1, region_color, color)
 
-        if not self._verify_coordinates(x, y + 1, False) or pixel_color != region_color:
-            return
-        else:
+        if self._can_fill_pixel(x, y + 1, region_color):
             self._fill(x, y + 1, region_color, color)
 
-        if not self._verify_coordinates(x+1, y, False) or pixel_color != region_color:
-            return
-        else:
-            self._fill(x+1, y, region_color, color)
+        if self._can_fill_pixel(x + 1, y, region_color):
+            self._fill(x + 1, y, region_color, color)
 
-        if not self._verify_coordinates(x-1, y, False) or pixel_color != region_color:
-            return
-        else:
-            self._fill(x-1, y, region_color, color)
+        if self._can_fill_pixel(x - 1, y, region_color):
+            self._fill(x - 1, y, region_color, color)
 
     def fill_region(self, x, y, color):
         region_color = self.get_pixel(x, y)
