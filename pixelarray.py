@@ -39,18 +39,19 @@ class PixelArray:
         :param throw_exception: If True will raise a ValueError exception
         :return: True if valid position
         """
+        error_message = None
         if x <= 0 or x > self.number_of_cols:
-            if throw_exception:
-                raise ValueError('X must be a non zero value')
-            else:
-                return False
+            error_message = 'X must be a valid position in array'
         if y <= 0 or y > self.number_of_rows:
+            error_message = 'Y must be a valid position in array'
+
+        if error_message:
             if throw_exception:
-                raise ValueError('y must be a non zero value')
+                raise ValueError(error_message)
             else:
                 return False
-
-        return True
+        else:
+            return True
 
     def get_pixel(self, x, y):
         """
