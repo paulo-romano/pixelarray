@@ -192,14 +192,14 @@ class Runner:
         Clear the data
         :param command_args: Args used in this command
         """
-        if self._data:
+        try:
             self._data.clear()
-        else:
+        except AttributeError:
             print('Inválide command! Must be initialized first.')
 
     def execute_l(self, args):
         """
-        Create a empty array of pixels
+        Coloraze a pixel
         :param args: Args used in this command
         """
         try:
