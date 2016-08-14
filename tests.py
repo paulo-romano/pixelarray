@@ -234,3 +234,71 @@ class RunnerTestCase(TestCase):
     def test_execute_must_execute_s(self):
         command, command_args = 's', ['test.bmp']
         self.assertExecute(command, command_args)
+
+
+class ExerciseTestcase(TestCase):
+    def setUp(self):
+        self.runner = Runner()
+
+    def assertFileEqual(self, file_name, expected):
+        import os
+        file = open(file_name).read()
+        os.remove(file_name)
+        self.assertEqual(file, expected)
+
+    def test_one(self):
+        file_name = 'one.bmp'
+        expected = '00000\n' \
+                   '00000\n' \
+                   '0A000\n' \
+                   '00000\n' \
+                   '00000\n' \
+                   '00000\n'
+
+        self.runner.execute('i', ['5', '6'])
+        self.runner.execute('l', ['2', '3', 'A'])
+        self.runner.execute('s', [file_name])
+
+        self.assertFileEqual(file_name, expected)
+
+    def test_two(self):
+        file_name = 'two.bmp'
+        expected = 'JJJJJ\n' \
+                   'JJZZJ\n' \
+                   'JWJJJ\n' \
+                   'JWJJJ\n' \
+                   'JJJJJ\n' \
+                   'JJJJJ\n'
+
+        self.runner.execute('i', ['5', '6'])
+        self.runner.execute('g', ['2', '3', 'J'])
+        self.runner.execute('v', ['2', '3', '4', 'W'])
+        self.runner.execute('h', ['3', '4', '2', 'Z'])
+        self.runner.execute('f', ['3', '3', 'J'])
+        self.runner.execute('s', [file_name])
+
+        self.assertFileEqual(file_name, expected)
+
+    def test_three(self):
+        file_name = 'three.bmp'
+        expected = 'JJJJJJJJJJ\n' \
+                   'JJJJJJJJJJ\n' \
+                   'JWJJAJJJJJ\n' \
+                   'JWJJJJJJJJ\n' \
+                   'ZZZZZZZZZZ\n' \
+                   'RRRRRRRRRR\n' \
+                   'REEEEEEERR\n' \
+                   'REEEEEEERR\n' \
+                   'RRRRRRRRRR\n'
+
+        self.runner.execute('i', ['10', '9'])
+        self.runner.execute('l', ['5', '3', 'A'])
+        self.runner.execute('g', ['2', '3', 'J'])
+        self.runner.execute('v', ['2', '3', '4', 'W'])
+        self.runner.execute('h', ['1', '10', '5', 'Z'])
+        self.runner.execute('f', ['3', '3', 'J'])
+        self.runner.execute('k', ['2', '7', '8', '8', 'E'])
+        self.runner.execute('f', ['9', '9', 'R'])
+        self.runner.execute('s', [file_name])
+
+        self.assertFileEqual(file_name, expected)
