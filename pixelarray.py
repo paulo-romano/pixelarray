@@ -172,7 +172,7 @@ class PixelArray:
 
 
 class Runner:
-    def __int__(self):
+    def __init__(self):
         self._data = None
 
     def execute_i(self, args):
