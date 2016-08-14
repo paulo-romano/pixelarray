@@ -230,3 +230,7 @@ class RunnerTestCase(TestCase):
     def test_execute_must_execute_f(self):
         command, command_args = 'f', ['3', '6', 'C']
         self.assertExecute(command, command_args)
+
+    def test_execute_must_execute_s(self):
+        command, command_args = 's', ['test.bmp']
+        self.assertExecute(command, command_args)

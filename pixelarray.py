@@ -276,6 +276,21 @@ class Runner:
         except:
             print('Invalid command! Must be: f Pos_X Pos_Y Color')
 
+    def execute_s(self, args):
+        """
+        Save to file
+        :param args: Args used in this command
+        """
+        try:
+            x = int(args[0])
+            y = int(args[1])
+            color = str(args[2])
+            self._data.colorize(x, y, color)
+        except AttributeError:
+            print('Inválide command! Must be initialized first.')
+        except:
+            print('Invalid command! Must be: S Name')
+
     def execute(self, command, command_args):
         """
         Decides what command will be executed
