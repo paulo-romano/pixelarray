@@ -246,7 +246,7 @@ class Runner:
 
     def execute_k(self, args):
         """
-        Draw a horizontal segment
+        Draw a rectangle
         :param args: Args used in this command
         """
         try:
