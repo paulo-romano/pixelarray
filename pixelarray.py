@@ -1,6 +1,11 @@
 class PixelArray:
     """Implements a array of pixels"""
     def __init__(self, number_of_cols, number_of_rows):
+        """
+        Initializer a PixelArray object
+        :param number_of_cols: Number of columns
+        :param number_of_rows: Number of rows
+        """
         self.number_of_rows = number_of_rows
         self.number_of_cols = number_of_cols
         self._initialize_data(number_of_cols, number_of_rows)
@@ -9,11 +14,17 @@ class PixelArray:
         return self.number_of_rows * self.number_of_cols
 
     def _initialize_data(self, number_of_cols, number_of_rows):
+        """
+        Initialize data with zeros
+        :param number_of_cols: Number of columns
+        :param number_of_rows: Number of rows
+        """
         self._data = []
         for row in range(number_of_rows):
             self._data.append(list(['0' for col in range(number_of_cols)]))
 
     def clear(self):
+        """Clear the data."""
         self._initialize_data(self.number_of_cols, self.number_of_rows)
 
     @property
@@ -21,6 +32,13 @@ class PixelArray:
         return self._data
 
     def _verify_coordinates(self, x, y, throw_exception=True):
+        """
+        Verify if a coordinate is valid
+        :param x:
+        :param y:
+        :param throw_exception: If True will raise a ValueError exception
+        :return: True if valid position
+        """
         if x <= 0 or x > self.number_of_cols:
             if throw_exception:
                 raise ValueError('X must be a non zero value')
@@ -35,14 +53,27 @@ class PixelArray:
         return True
 
     def get_pixel(self, x, y):
+        """
+        Return the pixel color
+        :param x: Column of the pixel
+        :param y: Line of the pixel
+        :return: The pixel's color
+        """
         self._verify_coordinates(x, y)
         return self._data[y-1][x-1]
 
     def colorize(self, x, y, color):
+        """
+        Change color of a pixel
+        :param x: Column of the pixel
+        :param y: Line of the pixel
+        :param color: New color
+        """
         self._verify_coordinates(x, y)
         self._data[y-1][x-1] = color
 
     def get_formatted_data(self):
+        """Returns data with pretty format"""
         formatted_data = ''
         for row in self.data:
             for col in row:
@@ -52,14 +83,36 @@ class PixelArray:
         return formatted_data
 
     def draw_vertical_segment(self, x, y1, y2, color):
+        """
+        Draw a vertical segment in column x from line y1 to y2
+        :param x: In this column
+        :param y1: From this line
+        :param y2: To this line
+        :param color: Whit this color
+        """
         for y in range(y1, y2+1):
             self.colorize(x, y, color)
 
     def draw_horizontal_segment(self, x1, x2, y, color):
+        """
+        Draw a horizontal segment in line y from column x1 to x2
+        :param x1: From this column
+        :param x2: To this column
+        :param y: In this line
+        :param color: Whit this color
+        """
         for x in range(x1, x2+1):
             self.colorize(x, y, color)
 
     def draw_rectangle(self, x1, y1, x2, y2, color):
+        """
+        Draw a rectangle from (x1, y2) to (x2, y2) pixel.
+        :param x1: Column of the first pixel
+        :param y1: Line of the first pixel
+        :param x2: Column of the second pixel
+        :param y2: Line of the second pixel
+        :param color: Color to fill the rectangle
+        """
         for x in range(x1, x2+1):
             for y in range(y1, y2+1):
                 self.colorize(x, y, color)
@@ -69,7 +122,7 @@ class PixelArray:
         Verify if a pixel can be filled with another color
         :param x: Column of the pixel
         :param y: Line of the pixel
-        :param region_color: The region color that will be verifyed
+        :param region_color: The region color that will be verified
         :return: True if can be changed
         """
         return self._verify_coordinates(x, y, False) and self.get_pixel(x, y) == region_color
@@ -79,10 +132,9 @@ class PixelArray:
         Fill all pixel located in same region color, and his adjacent pixels.
         :param x: Column of the pixel
         :param y: Line of the pixel
-        :param region_color: The region color that will be verifyed
+        :param region_color: The region color that will be verified
         :param color: New color
         """
-
         if self.get_pixel(x, y) == region_color:
             self.colorize(x, y, color)
 
