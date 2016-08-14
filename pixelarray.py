@@ -251,8 +251,8 @@ class Runner:
         """
         try:
             x1 = int(args[0])
-            x2 = int(args[1])
-            y1 = int(args[2])
+            y1 = int(args[1])
+            x2 = int(args[2])
             y2 = int(args[3])
             color = str(args[4])
             self._data.draw_rectangle(x1, y1, x2, y2, color)
@@ -270,7 +270,7 @@ class Runner:
             x = int(args[0])
             y = int(args[1])
             color = str(args[2])
-            self._data.colorize(x, y, color)
+            self._data.fill_region(x, y, color)
         except AttributeError:
             print('Invalid command! Must be initialized first.')
         except:
