@@ -144,7 +144,8 @@ class PixelArrayTestCase(TestCase):
         self.assertFalse(obj._verify_coordinates(-1, 2, throw_exception=False))
         self.assertFalse(obj._verify_coordinates(1, -2, throw_exception=False))
 
-    def _get_pixelarray_and_expected(self):
+    @staticmethod
+    def _get_pixelarray_and_expected():
         expected = 'KKKK000000\n' \
                    'KKKK000000\n' \
                    'RR00000000\n' \
@@ -179,6 +180,9 @@ class PixelArrayTestCase(TestCase):
 
 
 class RunnerTestCase(TestCase):
+    def setUp(self):
+        self.runner = Runner()
+
     def test_must_have_run_method(self):
         self.assertIsNotNone(Runner().run)
 
@@ -189,8 +193,7 @@ class RunnerTestCase(TestCase):
         self.assertIsNotNone(Runner().execute_i)
 
     def test_execute_must_execute_i(self):
-        runner = Runner()
-        runner.execute_i = MagicMock()
+        self.runner.execute_i = MagicMock()
         command, command_args = 'i', ['4', '2']
-        runner.execute(command, command_args)
-        runner.execute_i.assert_called_with(command_args)
+        self.runner.execute(command, command_args)
+        self.runner.execute_i.assert_called_with(command_args)
