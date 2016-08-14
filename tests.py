@@ -189,27 +189,28 @@ class RunnerTestCase(TestCase):
     def test_must_have_execute_method(self):
         self.assertIsNotNone(self.runner.execute)
 
-    def test_execute_must_execute_i(self):
-        method = self.runner.execute_i
-        self.runner.execute_i = MagicMock()
-        command, command_args = 'i', ['4', '2']
+    def assertExecute(self, command, command_args):
+        method_name = 'execute_' + command
+
+        # Mock the method
+        method_old = getattr(self.runner, method_name)
+        setattr(self.runner, method_name, MagicMock())
         self.runner.execute(command, command_args)
-        self.runner.execute_i.assert_called_with(command_args)
-        self.runner.execute_i = method
+
+        # Verify if the method was called
+        getattr(self.runner, method_name).assert_called_with(command_args)
+
+        # Change mocked method to old one
+        setattr(self.runner, method_name, method_old)
+
+    def test_execute_must_execute_i(self):
+        command, command_args = 'i', ['4', '2']
+        self.assertExecute(command, command_args)
 
     def test_execute_muste_execute_c(self):
-        method = self.runner.execute_c
-        self.runner.execute_c = MagicMock()
         command, command_args = 'c', None
-        self.runner.execute(command, command_args)
-        self.runner.execute_c.assert_called_with(command_args)
-        self.runner.execute_c = method
-
+        self.assertExecute(command, command_args)
 
     def test_execute_muste_execute_l(self):
-        method = self.runner.execute_l
-        self.runner.execute_l = MagicMock()
         command, command_args = 'l', ['2', '3', 'C']
-        self.runner.execute(command, command_args)
-        self.runner.execute_l.assert_called_with(command_args)
-        self.runner.execute_l = method
+        self.assertExecute(command, command_args)
