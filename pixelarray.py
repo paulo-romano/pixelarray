@@ -244,6 +244,23 @@ class Runner:
         except:
             print('Invalid command! Must be: H Pos_X1 Pos_X2 Pos_Y Color')
 
+    def execute_k(self, args):
+        """
+        Draw a horizontal segment
+        :param args: Args used in this command
+        """
+        try:
+            x1 = int(args[0])
+            x2 = int(args[1])
+            y1 = int(args[2])
+            y2 = int(args[3])
+            color = str(args[4])
+            self._data.colorize(x1, x2, y, color)
+        except AttributeError:
+            print('Inválide command! Must be initialized first.')
+        except:
+            print('Invalid command! Must be: K Pos_X1 Pos_Y1 Pos_X2 Pos_Y2 Color')
+
     def execute(self, command, command_args):
         """
         Decides what command will be executed
