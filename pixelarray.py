@@ -154,3 +154,12 @@ class PixelArray:
     def fill_region(self, x, y, color):
         region_color = self.get_pixel(x, y)
         self._fill(x, y, region_color, color)
+
+    def save(self, name):
+        """
+        Save formatted data to file
+        :param name: Name of the file
+        """
+        file = open(name, 'w')
+        file.write(self.get_formatted_data())
+        file.close()

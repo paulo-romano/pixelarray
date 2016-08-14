@@ -143,7 +143,7 @@ class PixelArrayTestCase(TestCase):
         self.assertFalse(obj._verify_coordinates(-1, 2, throw_exception=False))
         self.assertFalse(obj._verify_coordinates(1, -2, throw_exception=False))
 
-    def test_fill_region_method(self):
+    def _get_pixelarray_and_expected(self):
         expected = 'KKKK000000\n' \
                    'KKKK000000\n' \
                    'RR00000000\n' \
@@ -160,4 +160,18 @@ class PixelArrayTestCase(TestCase):
         obj.draw_rectangle(1, 3, 2, 6, 'R')
         obj.fill_region(2, 2, 'K')
         obj.fill_region(3, 8, 'J')
+
+        return expected, obj
+
+    def test_fill_region_method(self):
+        expected, obj = self._get_pixelarray_and_expected()
         self.assertEqual(obj.get_formatted_data(), expected)
+
+    def test_must_save_formatted_data_to_file(self):
+        import os
+        expected, obj = self._get_pixelarray_and_expected()
+        name = 'test.bmp'
+        obj.save(name)
+        file = open(name).read()
+        os.remove(name)
+        self.assertEqual(file, expected)
