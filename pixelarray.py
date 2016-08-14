@@ -169,3 +169,34 @@ class PixelArray:
         file = open(name, 'w')
         file.write(self.get_formatted_data())
         file.close()
+
+
+class Runner:
+    def __int__(self, array_class):
+        self._data = None
+        self.array_class = array_class
+
+    def execute_i(self, args):
+        try:
+            cols = int(args[0])
+            rows = int(args[1])
+            self._data = PixelArray(cols, rows)
+        except:
+            print('Invalid command! Must be: i number_of_columns number_of_rows')
+
+    def execute(self, command, command_args):
+        method = getattr(self, 'execute_' + command.lower(), None)
+        if method:
+            method(command_args)
+
+    def run(self):
+        command = ''
+        while command.upper() != 'X':
+            command, *command_args = input('Command: ').split(' ')
+            self.execute(command, command_args)
+
+
+if __name__ == '__main__':
+    Runner().run()
+
+

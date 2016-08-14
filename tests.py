@@ -1,5 +1,6 @@
 from unittest import TestCase
-from pixelarray import PixelArray
+from unittest.mock import MagicMock
+from pixelarray import PixelArray, Runner
 
 
 class PixelArrayTestCase(TestCase):
@@ -175,3 +176,21 @@ class PixelArrayTestCase(TestCase):
         file = open(name).read()
         os.remove(name)
         self.assertEqual(file, expected)
+
+
+class RunnerTestCase(TestCase):
+    def test_must_have_run_method(self):
+        self.assertIsNotNone(Runner().run)
+
+    def test_must_have_execute_method(self):
+        self.assertIsNotNone(Runner().execute)
+
+    def test_must_have_execute_i(self):
+        self.assertIsNotNone(Runner().execute_i)
+
+    def test_execute_must_execute_i(self):
+        runner = Runner()
+        runner.execute_i = MagicMock()
+        command, command_args = 'i', ['4', '2']
+        runner.execute(command, command_args)
+        runner.execute_i.assert_called_with(command_args)
