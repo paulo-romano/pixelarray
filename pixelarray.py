@@ -197,6 +197,21 @@ class Runner:
         else:
             print('Inválide command! Must be initialized first.')
 
+    def execute_l(self, args):
+        """
+        Create a empty array of pixels
+        :param args: Args used in this command
+        """
+        try:
+            x = int(args[0])
+            y = int(args[1])
+            color = str(args[2])
+            self._data.colorize(x, y, color)
+        except AttributeError:
+            print('Inválide command! Must be initialized first.')
+        except:
+            print('Invalid command! Must be: i number_of_columns number_of_rows')
+
     def execute(self, command, command_args):
         """
         Decides what command will be executed

@@ -204,3 +204,12 @@ class RunnerTestCase(TestCase):
         self.runner.execute(command, command_args)
         self.runner.execute_c.assert_called_with(command_args)
         self.runner.execute_c = method
+
+
+    def test_execute_muste_execute_l(self):
+        method = self.runner.execute_l
+        self.runner.execute_l = MagicMock()
+        command, command_args = 'l', ['2', '3', 'C']
+        self.runner.execute(command, command_args)
+        self.runner.execute_l.assert_called_with(command_args)
+        self.runner.execute_l = method
