@@ -222,7 +222,7 @@ class Runner:
             y1 = int(args[1])
             y2 = int(args[2])
             color = str(args[3])
-            self._data.colorize(x, y1, y2, color)
+            self._data.draw_vertical_segment(x, y1, y2, color)
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
@@ -238,7 +238,7 @@ class Runner:
             x2 = int(args[1])
             y = int(args[2])
             color = str(args[3])
-            self._data.colorize(x1, x2, y, color)
+            self._data.draw_horizontal_segment(x1, x2, y, color)
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
@@ -255,7 +255,7 @@ class Runner:
             y1 = int(args[2])
             y2 = int(args[3])
             color = str(args[4])
-            self._data.colorize(x1, x2, y, color)
+            self._data.draw_rectangle(x1, y1, x2, y2, color)
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
