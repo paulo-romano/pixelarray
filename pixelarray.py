@@ -282,10 +282,8 @@ class Runner:
         :param args: Args used in this command
         """
         try:
-            x = int(args[0])
-            y = int(args[1])
-            color = str(args[2])
-            self._data.colorize(x, y, color)
+            name = str(args[0])
+            self._data.save(name)
         except AttributeError:
             print('Invalid command! Must be initialized first.')
         except:
