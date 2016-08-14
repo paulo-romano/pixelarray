@@ -210,7 +210,7 @@ class Runner:
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
-            print('Invalid command! Must be: i number_of_columns number_of_rows')
+            print('Invalid command! Must be: L Pos_X Pos_Y Color')
 
     def execute_v(self, args):
         """
@@ -226,7 +226,7 @@ class Runner:
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
-            print('Invalid command! Must be: i number_of_columns number_of_rows')
+            print('Invalid command! Must be: V Pos_X Pos_Y1 Pos_Y2 Color')
 
     def execute_h(self, args):
         """
@@ -242,7 +242,7 @@ class Runner:
         except AttributeError:
             print('Inválide command! Must be initialized first.')
         except:
-            print('Invalid command! Must be: i number_of_columns number_of_rows')
+            print('Invalid command! Must be: H Pos_X1 Pos_X2 Pos_Y Color')
 
     def execute(self, command, command_args):
         """
