@@ -20,11 +20,19 @@ class PixelArray:
     def data(self):
         return self._data
 
-    def _verify_coordinates(self, x, y):
+    def _verify_coordinates(self, x, y, throw_exception=True):
         if x <= 0 or x > self.number_of_cols:
-            raise ValueError('X must be a non zero value')
+            if throw_exception:
+                raise ValueError('X must be a non zero value')
+            else:
+                return False
         if y <= 0 or y > self.number_of_rows:
-            raise ValueError('y must be a non zero value')
+            if throw_exception:
+                raise ValueError('y must be a non zero value')
+            else:
+                return False
+
+        return True
 
     def get_pixel(self, x, y):
         self._verify_coordinates(x, y)
@@ -57,7 +65,30 @@ class PixelArray:
                 self.colorize(x, y, color)
 
     def _fill(self, x, y, region_color, color):
-        pass
+        pixel_color = self.get_pixel(x, y)
+        if pixel_color == region_color or pixel_color == color:
+            self.colorize(x, y, color)
+
+        # Todo: Needs refactoring
+        if not self._verify_coordinates(x, y - 1, False) or pixel_color != region_color:
+            return
+        else:
+            self._fill(x, y - 1, region_color, color)
+
+        if not self._verify_coordinates(x, y + 1, False) or pixel_color != region_color:
+            return
+        else:
+            self._fill(x, y + 1, region_color, color)
+
+        if not self._verify_coordinates(x+1, y, False) or pixel_color != region_color:
+            return
+        else:
+            self._fill(x+1, y, region_color, color)
+
+        if not self._verify_coordinates(x-1, y, False) or pixel_color != region_color:
+            return
+        else:
+            self._fill(x-1, y, region_color, color)
 
     def fill_region(self, x, y, color):
         region_color = self.get_pixel(x, y)

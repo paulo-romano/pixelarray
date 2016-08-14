@@ -138,6 +138,11 @@ class PixelArrayTestCase(TestCase):
         self.assertRaises(ValueError, obj._verify_coordinates, x=3, y=1)
         self.assertRaises(ValueError, obj._verify_coordinates, x=1, y=3)
 
+    def test_verify_coordinates_return_false(self):
+        obj = PixelArray(2, 2)
+        self.assertFalse(obj._verify_coordinates(-1, 2, throw_exception=False))
+        self.assertFalse(obj._verify_coordinates(1, -2, throw_exception=False))
+
     def test_fill_region_method(self):
         expected = 'KKKK000000\n' \
                    'KKKK000000\n' \
@@ -145,13 +150,14 @@ class PixelArrayTestCase(TestCase):
                    'RR00000000\n' \
                    'RR00000000\n' \
                    'RR00000000\n' \
-                   '0EEEEEEE00\n' \
-                   '0EEEEEEE00\n' \
+                   '0JJJJJJJ00\n' \
+                   '0JJJJJJJ00\n' \
                    '0000000000\n'
 
         obj = PixelArray(10, 9)
         obj.draw_rectangle(1, 1, 4, 2, 'X')
         obj.draw_rectangle(2, 7, 8, 8, 'E')
         obj.draw_rectangle(1, 3, 2, 6, 'R')
-        obj.fill_region(1, 1, 'K')
+        obj.fill_region(2, 2, 'K')
+        obj.fill_region(3, 8, 'J')
         self.assertEqual(obj.get_formatted_data(), expected)
