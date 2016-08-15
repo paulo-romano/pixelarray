@@ -179,9 +179,11 @@ class PixelArrayTestCase(TestCase):
         expected, obj = self._get_pixelarray_and_expected()
         name = 'test.bmp'
         obj.save(name)
-        file = open(name).read()
+        with open(name) as file:
+            file_text = file.read()
+            file.close()
         os.remove(name)
-        self.assertEqual(file, expected)
+        self.assertEqual(file_text, expected)
 
     def test_recursion_limit(self):
         max_number = 1000
@@ -348,9 +350,11 @@ class ExerciseTestCase(TestCase):
 
     def assertFileEqual(self, file_name, expected):
         import os
-        file = open(file_name).read()
+        with open(file_name) as file:
+            file_text = file.read()
+            file.close()
         os.remove(file_name)
-        self.assertEqual(file, expected)
+        self.assertEqual(file_text, expected)
 
     def test_one(self):
         file_name = 'one.bmp'
