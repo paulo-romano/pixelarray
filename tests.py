@@ -337,7 +337,7 @@ class RunnerTestCase(TestCase):
         runner._data._fill_recursive.assert_called_once_with(1, 2, '0', 'K')
 
 
-class RunnerTestCaseFloodfillRecursive(RunnerTestCase):
+class RunnerTestCaseFloodFillRecursive(RunnerTestCase):
     def setUp(self):
         self.runner = Runner(fill_strategy_recursive=True)
 
@@ -410,6 +410,6 @@ class ExerciseTestCase(TestCase):
         self.assertFileEqual(file_name, expected)
 
 
-class ExerciseTestCaseFloodfillRecursive(ExerciseTestCase):
+class ExerciseTestCaseFloodFillRecursive(ExerciseTestCase):
     def setUp(self):
         self.runner = Runner(fill_strategy_recursive=True)
