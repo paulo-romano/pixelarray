@@ -237,7 +237,7 @@ class Runner:
         except IndexError:
             self._print_error('Invalid command! Must be: i number_of_columns number_of_rows')
 
-    def execute_c(self, command_args):
+    def execute_c(self, args):
         """
         Clear the data
         :param command_args: Args used in this command
