@@ -7,8 +7,13 @@ class PixelArrayTestCase(TestCase):
     def test_must_have_pixelarray_class(self):
         self.assertIsNotNone(PixelArray)
 
-    def test_must_initialize_with_size(self):
+    def test_must_initialize_with_only_size(self):
         self.assertIsNotNone(PixelArray(5, 5))
+
+    def test_must_initialize_with_size_and_fill_strategy_recursive(self):
+        obj = PixelArray(5, 5, fill_strategy_recursive=True)
+        self.assertIsNotNone(obj)
+        self.assertTrue(obj._fill_strategy_recursive)
 
     def test_must_implement_dunder_len(self):
         obj = PixelArray(5, 5)
@@ -179,8 +184,8 @@ class PixelArrayTestCase(TestCase):
         self.assertEqual(file, expected)
 
     def test_recursion_limit(self):
-        max_number = 10
-        obj = PixelArray(max_number, max_number)
+        max_number = 1000
+        obj = PixelArray(max_number, max_number, fill_strategy_recursive=True)
         obj.fill_region(1, 1, 'X')
         self.assertIsNotNone(obj)
 
@@ -315,6 +320,27 @@ class RunnerTestCase(TestCase):
         self.assertExecuteErrorMessage(self.runner.execute_s, ['1', '1', '1', '1', 'C'],
                                        'Invalid command! Must be initialized first.')
 
+    @staticmethod
+    def test_runner_init_must_indicate_fill_strategy_iterative():
+        runner = Runner()
+        runner.execute_i(['2', '2'])
+        runner._data._fill = MagicMock()
+        runner.execute_f(['1', '2', 'K'])
+        runner._data._fill.assert_called_once_with(1, 2, '0', 'K')
+
+    @staticmethod
+    def test_runner_init_must_indicate_fill_strategy_recursive():
+        runner = Runner(fill_strategy_recursive=True)
+        runner.execute_i(['2', '2'])
+        runner._data._fill_recursive = MagicMock()
+        runner.execute_f(['1', '2', 'K'])
+        runner._data._fill_recursive.assert_called_once_with(1, 2, '0', 'K')
+
+
+class RunnerTestCaseFloodfillRecursive(RunnerTestCase):
+    def setUp(self):
+        self.runner = Runner(fill_strategy_recursive=True)
+
 
 class ExerciseTestCase(TestCase):
     def setUp(self):
@@ -382,3 +408,8 @@ class ExerciseTestCase(TestCase):
         self.runner.execute('s', [file_name])
 
         self.assertFileEqual(file_name, expected)
+
+
+class ExerciseTestCaseFloodfillRecursive(ExerciseTestCase):
+    def setUp(self):
+        self.runner = Runner(fill_strategy_recursive=True)

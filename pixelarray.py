@@ -1,14 +1,16 @@
 class PixelArray:
     """Implements a array of pixels"""
-    def __init__(self, number_of_cols, number_of_rows):
+    def __init__(self, number_of_cols, number_of_rows, fill_strategy_recursive=False):
         """
         Initializer a PixelArray object
         :param number_of_cols: Number of columns
         :param number_of_rows: Number of rows
+        :param fill_strategy_recursive: Strategy used to fill pixel area. True, will use recursive one.
         """
         self.number_of_rows = number_of_rows
         self.number_of_cols = number_of_cols
         self._initialize_data(number_of_cols, number_of_rows)
+        self._fill_strategy_recursive = fill_strategy_recursive
 
     def __len__(self):
         return self.number_of_rows * self.number_of_cols
@@ -131,6 +133,9 @@ class PixelArray:
     def _fill(self, x, y, region_color, color):
         """
         Fill all pixel located in same region color, and his adjacent pixels.
+            Algorithm: FloodFill with iterative implementation.
+                This implementation is slower than recursive one, but python tend to not work well with recursion
+
         :param x: Column of the pixel
         :param y: Line of the pixel
         :param region_color: The region color that will be verified
@@ -153,6 +158,30 @@ class PixelArray:
             if self._can_fill_pixel(x, y + 1, region_color):
                 pixels_to_fill.add((x, y + 1))
 
+    def _fill_recursive(self, x, y, region_color, color):
+        """
+        Fill all pixel located in same region color, and his adjacent pixels.
+            Algorithm: FloodFill with recursive implementation
+        :param x: Column of the pixel
+        :param y: Line of the pixel
+        :param region_color: The region color that will be verified
+        :param color: New color
+        """
+        if self.get_pixel(x, y) == region_color:
+            self.colorize(x, y, color)
+
+        if self._can_fill_pixel(x, y - 1, region_color):
+            self._fill(x, y - 1, region_color, color)
+
+        if self._can_fill_pixel(x, y + 1, region_color):
+            self._fill(x, y + 1, region_color, color)
+
+        if self._can_fill_pixel(x + 1, y, region_color):
+            self._fill(x + 1, y, region_color, color)
+
+        if self._can_fill_pixel(x - 1, y, region_color):
+            self._fill(x - 1, y, region_color, color)
+
     def fill_region(self, x, y, color):
         """
         Fill region with new color
@@ -160,8 +189,18 @@ class PixelArray:
         :param y: Line of the pixel in region
         :param color: New color
         """
+        import sys
+
         region_color = self.get_pixel(x, y)
-        self._fill(x, y, region_color, color)
+        if self._fill_strategy_recursive:
+            default_recursion_limit = sys.getrecursionlimit()
+            sys.setrecursionlimit(len(self) + 100)
+
+            self._fill_recursive(x, y, region_color, color)
+
+            sys.setrecursionlimit(default_recursion_limit)
+        else:
+            self._fill(x, y, region_color, color)
 
     def save(self, name):
         """
@@ -174,8 +213,13 @@ class PixelArray:
 
 
 class Runner:
-    def __init__(self):
+    def __init__(self, fill_strategy_recursive=False):
+        """
+        Initialize Runner object
+        :param fill_strategy_recursive: Strategy used to fill pixel area. True, will use recursive one.
+        """
         self._data = None
+        self._fill_strategy_recursive = fill_strategy_recursive
 
     @staticmethod
     def _print_error(error_message):
@@ -189,7 +233,7 @@ class Runner:
         try:
             cols = int(args[0])
             rows = int(args[1])
-            self._data = PixelArray(cols, rows)
+            self._data = PixelArray(cols, rows, self._fill_strategy_recursive)
         except IndexError:
             self._print_error('Invalid command! Must be: i number_of_columns number_of_rows')
 
@@ -314,6 +358,6 @@ class Runner:
 
 
 if __name__ == '__main__':
-    Runner().run()
+    Runner(fill_strategy_recursive=True).run()
 
 
