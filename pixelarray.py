@@ -136,20 +136,22 @@ class PixelArray:
         :param region_color: The region color that will be verified
         :param color: New color
         """
-        if self.get_pixel(x, y) == region_color:
+        pixels_to_fill = set()
+        if self._can_fill_pixel(x, y, region_color):
+            pixels_to_fill.add((x, y))
+
+        while pixels_to_fill:
+            x, y = pixels_to_fill.pop()
             self.colorize(x, y, color)
 
-        if self._can_fill_pixel(x, y - 1, region_color):
-            self._fill(x, y - 1, region_color, color)
-
-        if self._can_fill_pixel(x, y + 1, region_color):
-            self._fill(x, y + 1, region_color, color)
-
-        if self._can_fill_pixel(x + 1, y, region_color):
-            self._fill(x + 1, y, region_color, color)
-
-        if self._can_fill_pixel(x - 1, y, region_color):
-            self._fill(x - 1, y, region_color, color)
+            if self._can_fill_pixel(x - 1, y, region_color):
+                pixels_to_fill.add((x - 1, y))
+            if self._can_fill_pixel(x + 1, y, region_color):
+                pixels_to_fill.add((x + 1, y))
+            if self._can_fill_pixel(x, y - 1, region_color):
+                pixels_to_fill.add((x, y - 1))
+            if self._can_fill_pixel(x, y + 1, region_color):
+                pixels_to_fill.add((x, y + 1))
 
     def fill_region(self, x, y, color):
         """

@@ -178,6 +178,12 @@ class PixelArrayTestCase(TestCase):
         os.remove(name)
         self.assertEqual(file, expected)
 
+    def test_recursion_limit(self):
+        max_number = 10
+        obj = PixelArray(max_number, max_number)
+        obj.fill_region(1, 1, 'X')
+        self.assertIsNotNone(obj)
+
 
 class RunnerTestCase(TestCase):
     def setUp(self):
