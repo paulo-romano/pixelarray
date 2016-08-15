@@ -241,6 +241,80 @@ class RunnerTestCase(TestCase):
         command, command_args = 's', ['test.bmp']
         self.assertExecute(command, command_args)
 
+    def assertExecuteErrorMessage(self, command_method, command_args, error_message):
+        # Mock the method
+        method_old = self.runner._print_error
+        self.runner._print_error = MagicMock()
+        command_method(command_args)
+
+        # Verify if the method was called
+        self.runner._print_error.assert_called_with(error_message)
+
+        # Change mocked method to old one
+        self.runner._print_error = method_old
+
+    def test_execute_i_must_print_error_message_if_command_format_error(self):
+        self.assertExecuteErrorMessage(self.runner.execute_i, ['10'],
+                                       'Invalid command! Must be: i number_of_columns number_of_rows')
+
+    def test_execute_c_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_c, [],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_l_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_l, [],
+                                       'Invalid command! Must be: L Pos_X Pos_Y Color')
+
+    def test_execute_l_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_l, ['2', '2', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_v_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_v, [],
+                                       'Invalid command! Must be: V Pos_X Pos_Y1 Pos_Y2 Color')
+
+    def test_execute_v_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_v, ['1', '1', '1', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_h_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_h, [],
+                                       'Invalid command! Must be: H Pos_X1 Pos_X2 Pos_Y Color')
+
+    def test_execute_h_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_h, ['1', '1', '1', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_k_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_k, [],
+                                       'Invalid command! Must be: K Pos_X1 Pos_Y1 Pos_X2 Pos_Y2 Color')
+
+    def test_execute_k_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_k, ['1', '1', '1', '1', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_f_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_f, [],
+                                       'Invalid command! Must be: f Pos_X Pos_Y Color')
+
+    def test_execute_f_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_f, ['1', '1', '1', '1', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
+    def test_execute_s_must_print_error_message_if_command_format_error(self):
+        self.runner.execute_i(['2', '2'])
+        self.assertExecuteErrorMessage(self.runner.execute_s, [],
+                                       'Invalid command! Must be: S Name')
+
+    def test_execute_s_must_print_error_message_if_not_initialized(self):
+        self.assertExecuteErrorMessage(self.runner.execute_s, ['1', '1', '1', '1', 'C'],
+                                       'Invalid command! Must be initialized first.')
+
 
 class ExerciseTestcase(TestCase):
     def setUp(self):

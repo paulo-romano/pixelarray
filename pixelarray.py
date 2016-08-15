@@ -177,6 +177,10 @@ class Runner:
     def __init__(self):
         self._data = None
 
+    @staticmethod
+    def _print_error(error_message):
+        print(error_message)
+
     def execute_i(self, args):
         """
         Create a empty array of pixels
@@ -186,8 +190,8 @@ class Runner:
             cols = int(args[0])
             rows = int(args[1])
             self._data = PixelArray(cols, rows)
-        except:
-            print('Invalid command! Must be: i number_of_columns number_of_rows')
+        except IndexError:
+            self._print_error('Invalid command! Must be: i number_of_columns number_of_rows')
 
     def execute_c(self, command_args):
         """
@@ -197,7 +201,7 @@ class Runner:
         try:
             self._data.clear()
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
+            self._print_error('Invalid command! Must be initialized first.')
 
     def execute_l(self, args):
         """
@@ -210,9 +214,9 @@ class Runner:
             color = str(args[2])
             self._data.colorize(x, y, color)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: L Pos_X Pos_Y Color')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: L Pos_X Pos_Y Color')
 
     def execute_v(self, args):
         """
@@ -226,9 +230,9 @@ class Runner:
             color = str(args[3])
             self._data.draw_vertical_segment(x, y1, y2, color)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: V Pos_X Pos_Y1 Pos_Y2 Color')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: V Pos_X Pos_Y1 Pos_Y2 Color')
 
     def execute_h(self, args):
         """
@@ -242,9 +246,9 @@ class Runner:
             color = str(args[3])
             self._data.draw_horizontal_segment(x1, x2, y, color)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: H Pos_X1 Pos_X2 Pos_Y Color')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: H Pos_X1 Pos_X2 Pos_Y Color')
 
     def execute_k(self, args):
         """
@@ -259,9 +263,9 @@ class Runner:
             color = str(args[4])
             self._data.draw_rectangle(x1, y1, x2, y2, color)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: K Pos_X1 Pos_Y1 Pos_X2 Pos_Y2 Color')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: K Pos_X1 Pos_Y1 Pos_X2 Pos_Y2 Color')
 
     def execute_f(self, args):
         """
@@ -274,9 +278,9 @@ class Runner:
             color = str(args[2])
             self._data.fill_region(x, y, color)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: f Pos_X Pos_Y Color')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: f Pos_X Pos_Y Color')
 
     def execute_s(self, args):
         """
@@ -287,9 +291,9 @@ class Runner:
             name = str(args[0])
             self._data.save(name)
         except AttributeError:
-            print('Invalid command! Must be initialized first.')
-        except:
-            print('Invalid command! Must be: S Name')
+            self._print_error('Invalid command! Must be initialized first.')
+        except IndexError:
+            self._print_error('Invalid command! Must be: S Name')
 
     def execute(self, command, command_args):
         """
