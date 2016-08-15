@@ -316,7 +316,7 @@ class RunnerTestCase(TestCase):
                                        'Invalid command! Must be initialized first.')
 
 
-class ExerciseTestcase(TestCase):
+class ExerciseTestCase(TestCase):
     def setUp(self):
         self.runner = Runner()
 
