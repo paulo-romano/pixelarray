@@ -240,7 +240,7 @@ class Runner:
     def execute_c(self, args):
         """
         Clear the data
-        :param command_args: Args used in this command
+        :param args: Args used in this command
         """
         try:
             self._data.clear()

@@ -1,7 +1,7 @@
 ## PixelArray
 Basic PixelArray implementation
 
-## Dependencis 
+## Dependencies 
 * Python 3.4.4
 
 ## Execute
