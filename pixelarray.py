@@ -171,16 +171,16 @@ class PixelArray:
             self.colorize(x, y, color)
 
         if self._can_fill_pixel(x, y - 1, region_color):
-            self._fill(x, y - 1, region_color, color)
+            self._fill_recursive(x, y - 1, region_color, color)
 
         if self._can_fill_pixel(x, y + 1, region_color):
-            self._fill(x, y + 1, region_color, color)
+            self._fill_recursive(x, y + 1, region_color, color)
 
         if self._can_fill_pixel(x + 1, y, region_color):
-            self._fill(x + 1, y, region_color, color)
+            self._fill_recursive(x + 1, y, region_color, color)
 
         if self._can_fill_pixel(x - 1, y, region_color):
-            self._fill(x - 1, y, region_color, color)
+            self._fill_recursive(x - 1, y, region_color, color)
 
     def fill_region(self, x, y, color):
         """
@@ -358,6 +358,6 @@ class Runner:
 
 
 if __name__ == '__main__':
-    Runner(fill_strategy_recursive=True).run()
+    Runner().run()
 
 
